@@ -1,0 +1,29 @@
+{% include 'base.html' %}
+{% load static %}
+
+<header id="header" class="header d-flex align-items-center sticky-top">
+  <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+    <a href="/" class="logo d-flex align-items-center me-auto">
+      <img src={% static 'assets/images/logo.png' %} alt="">
+    </a>
+
+    <nav id="navmenu" class="navmenu">
+      <ul>
+        <li><a href="/#hero"  class="">Home</a></li>
+        <li><a href="/#portfolio">All Listing</a></li>
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#omaha">Explore Omaha</a></li>
+        <!-- <li><a href="#contact">Contact</a></li> -->
+      </ul>
+      <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+    </nav>
+    {% if user.is_authenticated %}
+     
+      <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button class="btn-getstarted" type="submit">logout</button>
+      </form>
+    {% endif %}
+  </div>
+</header>

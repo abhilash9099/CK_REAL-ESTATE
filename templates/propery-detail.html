@@ -1,0 +1,99 @@
+{% include 'base.html' %}
+{% load static %}
+{% block block %}
+{% include 'includes/header.html' %}
+
+
+<main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title" data-aos="fade">
+      <div class="container d-lg-flex justify-content-between align-items-center">
+        <h1 class="mb-2 mb-lg-0">{{property.street_address}}</h1>
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li class="current">Property Details</li>
+          </ol>
+        </nav>
+      </div>
+    </div><!-- End Page Title -->
+
+    <!-- Service Details Section -->
+    <section id="portfolio-details" class="portfolio-details section">
+
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+  
+          <div class="row gy-4">
+            <div class="col-lg-4">
+                <div class="portfolio-info" data-aos="fade-up" data-aos-delay="200">
+                    <h3>Price:  ${{ property.price }} </h3>
+                    <h3>
+                        {{property.street_address}} <br/>
+                        {{ property.city }} {{ property.state }} {{ property.zip_code }}
+                    </h3>
+                  
+                  <ul>
+                    <li><strong>Beds</strong>: {{ property.bedroom }} </li>
+                    <li><strong>Bath</strong>: {{property.bath}}</li>
+                    <li><strong>Sqft</strong>: {{property.total_sqft}}</li>
+                    <li><strong>Built Year</strong>: {{property.year_built}}</li>
+                  </ul>
+                </div>
+                <div class="portfolio-description" data-aos="fade-up" data-aos-delay="300">
+                  <h2>Description</h2>
+                  <p>
+                    {{property.description}}
+                  </p>
+                </div>
+            </div>
+            <div class="col-lg-8">
+              <div class="portfolio-details-slider swiper">
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                      <div class="carousel-item active">
+                        <img src=/{{property.property_photo1}} class="d-block w-100">
+                      </div>
+                      {% if  property.property_photo2 != '' %} 
+                        <div class="carousel-item">
+                          <img src=/{{property.property_photo2}} class="d-block w-100">
+                        </div>
+                      {% endif %}
+                      {% if  property.property_photo3 != '' %} 
+                        <div class="carousel-item">
+                          <img src=/{{property.property_photo3}} class="d-block w-100">
+                        </div>
+                      {% endif %}
+                      {% if  property.property_photo4 != '' %} 
+                        <div class="carousel-item">
+                          <img src=/{{property.property_photo4}} class="d-block w-100">
+                        </div>
+                      {% endif %}
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+              </div>
+            </div>
+  
+           
+  
+          </div>
+  
+        </div>
+  
+      </section><!-- /Service Details Section -->
+
+</main>
+
+{% include 'includes/footer.html' %}
+</body>
+
+</html>
+{% endblock %}
