@@ -1,0 +1,100 @@
+
+<div class="modal fade contactUsModal" id="contactUsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Contact Us</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post">
+                <div class="modal-body">
+                        
+                        <div id="form">
+                            <div class="alert alert-danger" role="alert" id="error_msg" style="display: none;">
+                                This is a danger alert—check it out!
+                            </div>
+                            <input type="hidden" name="token" id="token" value="{{ csrf_token }}" /> 
+                            <div class="row mb-3">
+                                <div class="form-group col-md-4">
+                                    <label for="email_id">Email Id</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input id="email_id" class="form-control" type="email" placeholder="Email id" required>
+                                </div>
+                                
+                            </div>
+                            <div class="row  mb-3">
+                                <div class="form-group col-md-4">
+                                    <label for="addressStreet">Message</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <textarea class="form-control" id="message" placeholder="Enter Message here" required></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-dark" onclick="sendMessage(event)">Send</button>
+                </div>
+            </form>
+          </div>
+        </div>
+    
+   
+
+    
+</div>
+            
+<script>
+    
+    function sendMessage(){
+        event.preventDefault();
+
+        var emailId = $("#email_id").val();
+        var message = $("#message").val();
+        var csrfmiddlewaretoken =$("#token").val();
+        $("#error_msg").hide();
+        if(emailId==""){
+            $("#error_msg").html("Please enter email Id");
+            $("#error_msg").show();
+        }
+        else if(!validateEmail(emailId)){
+            $("#error_msg").html("Email id is invalid");
+            $("#error_msg").show();
+        }
+        else if(message == ""){
+            $("#error_msg").html("Please enter Message");
+            $("#error_msg").show();
+        }
+        else{
+            $.ajax({
+                url:'/contact-us',
+                type: 'POST',
+                data:{'email_id':$("#email_id").val(),"message":$("#message").val()},"csrfmiddlewaretoken":$("#token").val(),
+                success: function (response) {
+                    console.log(response)
+                    if(response == "success")
+                    {
+                        alert("Message sent Successfully!!")
+                        $('#contactUsModal').modal('hide');
+                    }
+                },
+                error: function (response) {
+                console.log(response);
+                }
+            });
+        }
+        
+  }
+    const validateEmail = (email) => {
+        return String(email)
+        .toLowerCase()
+        .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        );
+    };
+</script>
