@@ -38,9 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_bootstrap4',
-    'home',
-    'accounts',
-    'property',
+    'home.apps.HomeConfig',
+    'accounts.apps.AccountsConfig',
+    'property.apps.PropertyConfig',
     'crispy_forms',
 ]
 
@@ -59,7 +59,7 @@ ROOT_URLCONF = 'ckrealstate.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -128,7 +128,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#crispy forms 
+#crispy forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -145,4 +145,7 @@ import os
 MEDIA_URL = 'media/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+TEMPLATE_DIRS = [
+    os.path.join(BASE_DIR, '/templates'),
+]
 
